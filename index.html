@@ -39,6 +39,12 @@
   .node{position:absolute;left:-6px;top:70px;width:15px;height:15px;border-radius:50%;
     background:var(--cream);border:3px solid var(--gold);z-index:2}
 
+  .illus{display:block;width:180px;max-width:62%;margin:0 auto 16px;overflow:visible}
+  .illus .float{animation:floaty 3.4s ease-in-out infinite alternate}
+  .illus .flame{animation:flick 1.7s ease-in-out infinite alternate}
+  @keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+  @keyframes flick{from{opacity:.78}to{opacity:1}}
+
   .eyebrow{font-family:'Sora',sans-serif;font-weight:700;font-size:.72rem;
     letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px}
 
@@ -174,7 +180,7 @@
   }
   @media (prefers-reduced-motion:reduce){
     .js .reveal{transition:none;opacity:1;transform:none}
-    .wave,.moon,.scroll-hint .dot{animation:none;opacity:.7}
+    .wave,.moon,.scroll-hint .dot,.illus .float,.illus .flame{animation:none;opacity:.7}
     html{scroll-behavior:auto}
   }
 </style>
@@ -211,7 +217,27 @@
   <!-- ============ 2 · EL MES DEL DESPERTAR ============ -->
   <section id="s1" class="reveal">
     <span class="node"></span>
-    <div class="eyebrow">Estación 1 · Elul</div>
+    <svg class="illus" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+      <g class="float">
+        <path d="M70 104 A 30 30 0 0 1 130 104" stroke="#E8A33D" stroke-width="6" stroke-linecap="round"/>
+        <g stroke="#E8A33D" stroke-width="4" stroke-linecap="round">
+          <line x1="100" y1="50" x2="100" y2="62"/>
+          <line x1="72" y1="60" x2="81" y2="70"/>
+          <line x1="128" y1="60" x2="119" y2="70"/>
+          <line x1="56" y1="86" x2="68" y2="90"/>
+          <line x1="144" y1="86" x2="132" y2="90"/>
+        </g>
+      </g>
+      <path d="M8 104 Q 100 86 192 104" stroke="#B97E1E" stroke-width="5" stroke-linecap="round"/>
+      <g stroke="#22201C" stroke-width="3" stroke-linecap="round">
+        <path d="M40 38 q5 -6 10 0 q5 -6 10 0"/>
+        <path d="M148 28 q4 -5 8 0 q4 -5 8 0"/>
+      </g>
+      <g fill="#E8A33D">
+        <circle cx="64" cy="22" r="2.5"/><circle cx="160" cy="58" r="2"/><circle cx="30" cy="68" r="2"/>
+      </g>
+    </svg>
+      <div class="eyebrow">Estación 1 · Elul</div>
     <h2>El mes que <em>despierta</em></h2>
     <p class="lead">Septiembre en el calendario de Dios no es un mes cualquiera: es la antesala de las fiestas. Yom Teruah, la fiesta de las trompetas, y luego Yom Kipur.</p>
     <p>Durante todo Elul, en Israel suena el shofar cada mañana: un toque al día, despertando al pueblo antes de los días santos. No llegamos a la fiesta de sorpresa — el despertar empieza antes.</p>
@@ -227,6 +253,28 @@
   <section id="s2" class="reveal">
     <span class="node"></span>
     <div class="night">
+      <svg class="illus" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+      <g stroke="#E8A33D" stroke-width="3" stroke-linecap="round" opacity=".55">
+        <path d="M14 18 Q 58 40 84 60"/>
+        <path d="M186 18 Q 142 40 116 60"/>
+        <path d="M14 112 Q 58 90 84 70"/>
+        <path d="M186 112 Q 142 90 116 70"/>
+      </g>
+      <g fill="#E8A33D">
+        <circle cx="84" cy="62" r="3"/><circle cx="116" cy="62" r="3"/>
+        <circle cx="84" cy="70" r="3"/><circle cx="116" cy="70" r="3"/>
+      </g>
+      <g class="float">
+        <path d="M64 96 C 56 74, 60 48, 82 34 C 102 21, 126 20, 140 30" stroke="#E8A33D" stroke-width="6" stroke-linecap="round"/>
+        <path d="M64 96 C 58 76, 62 52, 80 40" stroke="#B97E1E" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="148" cy="28" r="12" stroke="#E8A33D" stroke-width="5"/>
+        <circle cx="145" cy="26" r="2.2" fill="#E8A33D"/>
+        <g stroke="#E8A33D" stroke-width="3" stroke-linecap="round">
+          <path d="M166 30 C 171 36, 171 44, 166 50"/>
+          <path d="M178 24 C 186 34, 186 48, 178 58"/>
+        </g>
+      </g>
+    </svg>
       <div class="eyebrow">Estación 2 · Las señales</div>
       <h2>La trompeta <em>suena</em></h2>
       <p>En Mateo 24 los discípulos le preguntan a Jesús cuándo va a venir. Y antes de responder, Él describe el mundo de hoy: falsos mesías, guerras, hambres, terremotos.</p>
@@ -251,7 +299,23 @@
   <!-- ============ 4 · EL DÍA ESCONDIDO ============ -->
   <section id="s3" class="reveal tint">
     <span class="node"></span>
-    <div class="eyebrow">Estación 3 · La espera</div>
+    <svg class="illus" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+      <g class="float">
+        <path d="M116 32 C 92 46, 92 74, 116 88" stroke="#E8A33D" stroke-width="5" stroke-linecap="round"/>
+        <path d="M116 32 C 106 48, 106 72, 116 88" stroke="#E8A33D" stroke-width="5" stroke-linecap="round"/>
+      </g>
+      <g stroke="#6F6555" stroke-width="4" stroke-linecap="round">
+        <path d="M38 96 q10 -16 26 -10 q6 -12 20 -6 q12 5 10 16"/>
+        <path d="M120 108 q8 -12 22 -8 q5 -9 15 -4"/>
+      </g>
+      <g stroke="#E8A33D" stroke-width="3" stroke-linecap="round">
+        <path d="M46 26 l0 14 M39 33 l14 0"/>
+        <path d="M168 64 l0 10 M163 69 l10 0"/>
+      </g>
+      <circle cx="30" cy="60" r="2.5" fill="#E4633C"/>
+      <circle cx="156" cy="20" r="2.5" fill="#E4633C"/>
+    </svg>
+      <div class="eyebrow">Estación 3 · La espera</div>
     <h2>El día <em>escondido</em></h2>
     <p>Yom Teruah cae en luna nueva: es el único día santo que nadie sabe exactamente cuándo será, hasta que alguien ve la luna y lo declara. Por eso los judíos lo llaman también <strong>Yom HaKeseh</strong> — el día escondido.</p>
     <div class="verse">
@@ -269,7 +333,25 @@
   <!-- ============ 5 · TODO ESTO ES PARA LA IGLESIA ============ -->
   <section id="s4" class="reveal">
     <span class="node"></span>
-    <div class="eyebrow">Estación 4 · La casa</div>
+    <svg class="illus" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+      <g class="float">
+        <path d="M64 94 C 64 108, 136 108, 136 94" stroke="#B97E1E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M64 94 L136 94" stroke="#B97E1E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M136 94 L156 76" stroke="#B97E1E" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M139 100 L151 88" stroke="#B97E1E" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M64 94 C 52 94, 47 84, 56 77" stroke="#B97E1E" stroke-width="4" stroke-linecap="round"/>
+        <path class="flame" d="M156 56 C 150 66, 151 74, 156 78 C 161 74, 162 66, 156 56" fill="#E4633C"/>
+        <path class="flame" d="M156 64 C 153 68, 153.5 72, 156 74 C 158.5 72, 159 68, 156 64" fill="#E8A33D"/>
+        <g stroke="#E8A33D" stroke-width="3" stroke-linecap="round">
+          <line x1="156" y1="42" x2="156" y2="48"/>
+          <line x1="143" y1="48" x2="147" y2="53"/>
+          <line x1="169" y1="48" x2="165" y2="53"/>
+        </g>
+      </g>
+      <circle cx="36" cy="30" r="2.5" fill="#E8A33D"/>
+      <circle cx="168" cy="22" r="2" fill="#E4633C"/>
+    </svg>
+      <div class="eyebrow">Estación 4 · La casa</div>
     <h2>Todo esto es para <em>la iglesia</em></h2>
     <p>Entre la trompeta y los talentos, Jesús cuenta parábolas — y todas ocurren dentro de la casa: el siervo encargado, las diez vírgenes en la boda, los empleados del amo.</p>
     <p>Las vírgenes lo dicen todo: <strong>las diez</strong> esperan al novio, <strong>las diez</strong> se duermen, <strong>las diez</strong> tienen lámpara. No son las de afuera — están en la boda. O sea: la iglesia.</p>
@@ -284,7 +366,21 @@
   <!-- ============ 6 · LA PARÁBOLA ============ -->
   <section id="s5" class="reveal tint">
     <span class="node"></span>
-    <div class="eyebrow">Estación 5 · El encargo</div>
+    <svg class="illus" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+      <path d="M10 82 L72 82" stroke="#22201C" stroke-width="4" stroke-linecap="round"/>
+      <path d="M128 82 L190 82" stroke="#22201C" stroke-width="4" stroke-linecap="round"/>
+      <path d="M72 82 A 28 16 0 0 0 128 82" stroke="#22201C" stroke-width="4" stroke-linecap="round"/>
+      <g class="float">
+        <path d="M94 90 C 90 74, 97 62, 100 62 C 103 62, 110 74, 106 90" stroke="#B97E1E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M95 65 L105 65" stroke="#B97E1E" stroke-width="4" stroke-linecap="round"/>
+        <path d="M96 61 q4 -6 8 0" stroke="#B97E1E" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <circle cx="146" cy="66" r="9" stroke="#E8A33D" stroke-width="4.5"/>
+      <path d="M141 66 h10" stroke="#E8A33D" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="160" cy="76" r="2" fill="#E8A33D"/>
+      <circle cx="40" cy="72" r="2.5" fill="#E8A33D"/>
+    </svg>
+      <div class="eyebrow">Estación 5 · El encargo</div>
     <h2>El siervo del <em>hoyo</em></h2>
     <p>Y en ese mismo contexto, la parábola central: un amo que se va, empleados que reciben, y una cuenta pendiente.</p>
     <div class="verse">
@@ -306,7 +402,24 @@
   <!-- ============ 7 · LA MENTIRA Y LA PEREZA ============ -->
   <section id="s6" class="reveal">
     <span class="node"></span>
-    <div class="eyebrow">Estación 6 · El diagnóstico</div>
+    <svg class="illus" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+      <g class="float">
+        <path d="M84 24 L124 24" stroke="#B97E1E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M84 108 L124 108" stroke="#B97E1E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M87 28 C 87 46, 96 58, 100 66" stroke="#E8A33D" stroke-width="5" stroke-linecap="round"/>
+        <path d="M113 28 C 113 46, 104 58, 100 66" stroke="#E8A33D" stroke-width="5" stroke-linecap="round"/>
+        <path d="M87 104 C 87 86, 96 74, 100 66" stroke="#E8A33D" stroke-width="5" stroke-linecap="round"/>
+        <path d="M113 104 C 113 86, 104 74, 100 66" stroke="#E8A33D" stroke-width="5" stroke-linecap="round"/>
+        <path d="M92 104 L100 86 L108 104 Z" fill="#E8A33D"/>
+        <circle cx="100" cy="74" r="2.5" fill="#E8A33D"/>
+      </g>
+      <g fill="#E4633C" font-family="Sora, sans-serif" font-weight="700">
+        <text x="142" y="44" font-size="18">z</text>
+        <text x="158" y="30" font-size="24">z</text>
+        <text x="176" y="16" font-size="30">z</text>
+      </g>
+    </svg>
+      <div class="eyebrow">Estación 6 · El diagnóstico</div>
     <h2>La mentira y la <em>pereza</em></h2>
     <p>El griego deja ver las dos heridas. <span class="grk"><span class="grc">ponēros</span><span class="m">malo</span></span> — la maldad no fue el hoyo: fue la mentira sobre el carácter del amo (“es un hombre duro”). El que actúa como si Dios fuera imposible de complacer ya está creyendo una mentira. Y <span class="grk"><span class="grc">oknēros</span><span class="m">perezoso</span></span> — no el que no pudo: el que lo dejó todo para después.</p>
     <p>La inactividad siempre viene acompañada de una mentira sobre el carácter de Dios. El amo real es otro: entrega según la capacidad, celebra la fidelidad en lo poco, y dice <em>“entra y alégrate conmigo”</em>.</p>
@@ -321,7 +434,19 @@
   <!-- ============ 8 · PRODUCIR ES AYUDAR ============ -->
   <section id="s7" class="reveal tint">
     <span class="node"></span>
-    <div class="eyebrow">Estación 7 · El fruto</div>
+    <svg class="illus" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+      <g class="float">
+        <path d="M100 64 C 84 50, 76 40, 82 30 C 88 21, 98 25, 100 31 C 102 25, 112 21, 118 30 C 124 40, 116 50, 100 64 Z" stroke="#E4633C" stroke-width="5" stroke-linejoin="round"/>
+      </g>
+      <path d="M56 98 C 62 84, 80 78, 100 78 C 120 78, 138 84, 144 98" stroke="#B97E1E" stroke-width="5" stroke-linecap="round"/>
+      <path d="M56 98 C 64 110, 82 114, 100 114 C 118 114, 136 110, 144 98" stroke="#B97E1E" stroke-width="5" stroke-linecap="round"/>
+      <path d="M74 88 C 82 92, 90 94, 98 94" stroke="#E8A33D" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M102 94 C 110 94, 118 92, 126 88" stroke="#E8A33D" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="34" cy="36" r="2.5" fill="#E8A33D"/>
+      <circle cx="166" cy="50" r="2" fill="#E4633C"/>
+      <circle cx="158" cy="26" r="2.5" fill="#E8A33D"/>
+    </svg>
+      <div class="eyebrow">Estación 7 · El fruto</div>
     <h2>Producir es <em>ayudar</em></h2>
     <p>¿Y qué es producir? Jesús lo explica en el mismo capítulo, apenas termina la parábola — el mismo Señor contando qué van a encontrar los que entren:</p>
     <div class="verse">
@@ -340,6 +465,24 @@
   <section id="s8" class="reveal">
     <span class="node"></span>
     <div class="closing">
+      <svg class="illus" viewBox="0 0 200 130" fill="none" aria-hidden="true">
+      <g class="float">
+        <path d="M64 94 C 64 108, 136 108, 136 94" stroke="#E8A33D" stroke-width="5" stroke-linecap="round"/>
+        <path d="M64 94 L136 94" stroke="#E8A33D" stroke-width="5" stroke-linecap="round"/>
+        <path d="M136 94 L156 76" stroke="#E8A33D" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M139 100 L151 88" stroke="#E8A33D" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M64 94 C 52 94, 47 84, 56 77" stroke="#E8A33D" stroke-width="4" stroke-linecap="round"/>
+        <path class="flame" d="M156 56 C 150 66, 151 74, 156 78 C 161 74, 162 66, 156 56" fill="#E4633C"/>
+        <path class="flame" d="M156 64 C 153 68, 153.5 72, 156 74 C 158.5 72, 159 68, 156 64" fill="#E8A33D"/>
+        <g stroke="#E8A33D" stroke-width="3" stroke-linecap="round">
+          <line x1="156" y1="42" x2="156" y2="48"/>
+          <line x1="143" y1="48" x2="147" y2="53"/>
+          <line x1="169" y1="48" x2="165" y2="53"/>
+        </g>
+        <path d="M100 30 C 96 36, 96 40, 100 43 C 104 40, 104 36, 100 30" fill="#E8A33D"/>
+        <path d="M100 46 L100 56" stroke="#E8A33D" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+    </svg>
       <div class="eyebrow">Antes de terminar</div>
       <h2>El aceite en la <em>lámpara</em></h2>
       <p>Hasta que suene la trompeta, tres cosas nos quedan haciendo:</p>
