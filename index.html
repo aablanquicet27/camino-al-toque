@@ -363,9 +363,9 @@
   (function(){
     var el=document.getElementById('days');
     if(!el)return;
-    var target=new Date(2026,8,11,18,0,0); // mes 8 = sep
-    var now=new Date();
-    var d=Math.ceil((target-now)/86400000);
+    var t=new Date(2026,8,11,0,0,0); // 11 sep, medianoche
+    var n=new Date(); n.setHours(0,0,0,0);
+    var d=Math.round((t-n)/86400000);
     el.textContent=d>0?d:0;
   })();
 
