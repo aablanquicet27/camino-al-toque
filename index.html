@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FDF9F3">
+<title>Camino al Toque — Guía devocional</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='38' fill='%23E8A33D'/></svg>">
+<script>document.documentElement.className+=' js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Fraunces:ital,wght@1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FDF9F3; --ink:#22201C; --gold:#E8A33D; --gold-deep:#B97E1E;
+    --terra:#E4633C; --night:#232B3D; --night-deep:#141A2A;
+    --card:#FFFFFF; --line:#EADFCE; --muted:#6F6555;
+    --r-lg:28px; --r-md:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream); color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif; font-size:17px; line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:rgba(232,163,61,.3)}
+
+  /* ====== línea dorada del camino ====== */
+  .path{position:fixed;left:22px;top:0;bottom:0;width:3px;z-index:0;
+    background:rgba(232,163,61,.14);border-radius:3px}
+  .path-progress{position:fixed;left:22px;top:0;width:3px;z-index:1;
+    background:linear-gradient(180deg,var(--gold),var(--gold-deep));
+    border-radius:3px;height:0}
+
+  .wrap{position:relative;z-index:2;max-width:640px;margin:0 auto;padding:0 28px 56px}
+
+  section{padding:64px 0 24px;position:relative}
+  .node{position:absolute;left:-6px;top:70px;width:15px;height:15px;border-radius:50%;
+    background:var(--cream);border:3px solid var(--gold);z-index:2}
+
+  .eyebrow{font-family:'Sora',sans-serif;font-weight:700;font-size:.72rem;
+    letter-spacing:.28em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px}
+
+  h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(2.4rem,8vw,3.4rem);
+    line-height:1.08;letter-spacing:-.02em;margin-bottom:16px}
+  h2{font-family:'Sora',sans-serif;font-weight:700;font-size:clamp(1.5rem,5.5vw,1.95rem);
+    line-height:1.2;letter-spacing:-.01em;margin-bottom:14px}
+  h1 em,h2 em{font-style:normal;color:var(--gold-deep)}
+  p{margin-bottom:14px}
+  .lead{font-size:1.05rem;color:var(--ink)}
+  .soft{color:var(--muted)}
+
+  /* versículo */
+  .verse{background:var(--card);border:1.5px solid rgba(232,163,61,.5);
+    border-radius:var(--r-lg);padding:26px 26px 18px;margin:24px 0;
+    box-shadow:0 6px 24px rgba(184,140,60,.08)}
+  .verse blockquote{font-family:'Fraunces',Georgia,serif;font-style:italic;
+    font-size:1.22rem;line-height:1.55;color:#3B3324}
+  .verse .ref{display:block;margin-top:12px;font-family:'Sora',sans-serif;font-weight:700;
+    font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep)}
+
+  /* chips griegos */
+  .grk{display:inline-flex;align-items:baseline;gap:7px;background:#F4EAD8;
+    border-radius:100px;padding:3px 14px;margin:4px 6px 4px 0}
+  .grc{font-family:'Sora',sans-serif;font-weight:600;color:#7A5A14;font-size:.95rem}
+  .grk .m{font-size:.78rem;color:var(--muted)}
+
+  /* pregunta para conversar */
+  .ask{border-top:2px solid rgba(228,99,60,.35);margin-top:26px;padding-top:18px}
+  .ask .lbl{font-family:'Sora',sans-serif;font-weight:700;font-size:.7rem;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--terra);margin-bottom:8px}
+  .ask p{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:1.18rem;
+    color:#B34423;line-height:1.5}
+
+  .next{margin-top:26px;display:inline-flex;align-items:center;gap:10px;
+    font-family:'Sora',sans-serif;font-weight:700;font-size:.86rem;color:var(--gold-deep);
+    background:none;border:2px solid var(--gold);border-radius:100px;
+    padding:12px 24px;cursor:pointer;transition:all .25s ease}
+  .next:hover{background:var(--gold);color:#fff;transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(232,163,61,.35)}
+
+  /* estaciones con fondo alterno */
+  .tint{background:linear-gradient(180deg,transparent,rgba(232,163,61,.05) 30%,rgba(232,163,61,.05) 70%,transparent)}
+
+  /* revelado al bajar — solo si JS corrió (si no, todo visible) */
+  .js .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  .js .reveal.on{opacity:1;transform:none}
+
+  /* ====== noche: señales ====== */
+  .night{background:linear-gradient(180deg,var(--night) 0%,var(--night-deep) 100%);
+    border-radius:34px;color:#EAE6DC;margin:26px -28px 0;padding:44px 30px 40px;position:relative;overflow:hidden}
+  .night::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff8 100%,transparent),
+      radial-gradient(1px 1px at 34% 8%,#fff5 100%,transparent),
+      radial-gradient(1.6px 1.6px at 58% 26%,#fff7 100%,transparent),
+      radial-gradient(1px 1px at 76% 12%,#fff4 100%,transparent),
+      radial-gradient(1.4px 1.4px at 88% 32%,#fff6 100%,transparent),
+      radial-gradient(1px 1px at 22% 42%,#fff3 100%,transparent),
+      radial-gradient(1.2px 1.2px at 68% 48%,#fff5 100%,transparent),
+      radial-gradient(1px 1px at 45% 60%,#fff2 100%,transparent)}
+  .night h2{color:#F5F0E6}
+  .night .eyebrow{color:var(--gold)}
+  .night .verse{background:rgba(255,255,255,.06);border-color:rgba(232,163,61,.45);
+    box-shadow:none;backdrop-filter:blur(4px)}
+  .night .verse blockquote{color:#F3EDE0}
+  .night .verse .ref{color:var(--gold)}
+  .night p{color:#C9C4B8}
+  .night .ask{border-top-color:rgba(228,99,60,.5)}
+  .night .ask p{color:#F0A48C}
+  .night .next{border-color:var(--gold);color:var(--gold)}
+  .night .next:hover{background:var(--gold);color:var(--night-deep)}
+
+  /* ====== hero ====== */
+  .hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+    padding:100px 0 40px;position:relative}
+  .hero .kicker{font-family:'Sora',sans-serif;font-weight:700;font-size:.75rem;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:18px}
+  .hero h1 span{color:var(--gold-deep)}
+  .hero .sub{font-size:1.08rem;color:var(--muted);max-width:34ch}
+  .shofar-svg{width:150px;margin-bottom:26px;overflow:visible}
+  .wave{stroke:var(--gold);stroke-width:2.6;fill:none;stroke-linecap:round;
+    opacity:0;animation:wave 2.8s ease-out infinite}
+  .wave.w2{animation-delay:.35s}.wave.w3{animation-delay:.7s}
+  @keyframes wave{0%{opacity:0;transform:translateX(0)}15%{opacity:.9}100%{opacity:0;transform:translateX(16px)}}
+  .moon{animation:moonpulse 4s ease-in-out infinite}
+  @keyframes moonpulse{0%,100%{opacity:1}50%{opacity:.55}}
+
+  .counter{display:inline-flex;align-items:center;gap:14px;background:var(--card);
+    border:1.5px solid rgba(232,163,61,.5);border-radius:100px;padding:10px 22px;margin-top:26px;
+    box-shadow:0 4px 16px rgba(184,140,60,.1)}
+  .counter .n{font-family:'Sora',sans-serif;font-weight:800;font-size:1.7rem;color:var(--gold-deep);line-height:1}
+  .counter .t{font-size:.8rem;color:var(--muted);line-height:1.3}
+  .scroll-hint{margin-top:38px;font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:10px}
+  .scroll-hint .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:hint 1.6s ease-in-out infinite}
+  @keyframes hint{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* cierre / oración */
+  .closing{background:linear-gradient(180deg,var(--night) 0%,var(--night-deep) 100%);
+    border-radius:34px;color:#EAE6DC;margin:40px -28px 0;padding:44px 30px 44px;position:relative;overflow:hidden}
+  .closing::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(1.5px 1.5px at 18% 22%,#fff8 100%,transparent),
+      radial-gradient(1px 1px at 42% 12%,#fff5 100%,transparent),
+      radial-gradient(1.6px 1.6px at 66% 30%,#fff7 100%,transparent),
+      radial-gradient(1px 1px at 84% 18%,#fff4 100%,transparent),
+      radial-gradient(1.2px 1.2px at 28% 52%,#fff5 100%,transparent),
+      radial-gradient(1px 1px at 74% 58%,#fff3 100%,transparent)}
+  .closing h2{color:#F5F0E6}
+  .closing .eyebrow{color:var(--gold)}
+  .closing p{color:#C9C4B8}
+  .commit{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+  .commit .b{flex:none;width:34px;height:34px;border-radius:12px;background:rgba(232,163,61,.16);
+    color:var(--gold);display:grid;place-items:center;font-family:'Sora',sans-serif;font-weight:800;font-size:1rem;margin-top:3px}
+  .commit strong{color:#F5F0E6;display:block;margin-bottom:2px;font-family:'Sora',sans-serif;font-size:.98rem}
+  .commit p{margin:0;font-size:.95rem}
+  .prayer{background:rgba(255,255,255,.06);border:1px solid rgba(232,163,61,.4);
+    border-radius:22px;padding:24px;margin-top:28px;backdrop-filter:blur(4px)}
+  .prayer .lbl{font-family:'Sora',sans-serif;font-weight:700;font-size:.7rem;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .prayer p{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:1.08rem;
+    line-height:1.7;color:#F3EDE0;margin-bottom:10px}
+  .prayer p:last-child{margin:0}
+  .prayer .amen{font-family:'Sora',sans-serif;font-style:normal;font-weight:700;
+    letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;color:var(--gold)}
+
+  footer{padding:40px 0 10px;text-align:center;font-size:.75rem;color:var(--muted);
+    letter-spacing:.08em}
+
+  @media (max-width:640px){
+    .path,.path-progress{left:12px}
+    .node{left:-16px}
+    .wrap{padding:0 22px 48px}
+    .night,.closing{margin:26px -22px 0;padding:36px 22px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .js .reveal{transition:none;opacity:1;transform:none}
+    .wave,.moon,.scroll-hint .dot{animation:none;opacity:.7}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="path"></div>
+<div class="path-progress" id="progress"></div>
+
+<div class="wrap">
+
+  <!-- ============ 1 · HERO ============ -->
+  <header class="hero">
+    <svg class="shofar-svg" viewBox="0 0 220 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M18 112 C 10 84, 14 52, 40 32 C 66 12, 108 10, 132 26" stroke="#B97E1E" stroke-width="8" stroke-linecap="round"/>
+      <path d="M18 112 C 12 88, 16 58, 38 40 C 58 24, 92 20, 112 30" stroke="#E8A33D" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="142" cy="22" r="15" stroke="#B97E1E" stroke-width="6"/>
+      <circle cx="139" cy="19" r="2.6" fill="#B97E1E"/>
+      <path class="wave" d="M166 22 C 172 30, 172 40, 166 48"/>
+      <path class="wave w2" d="M180 14 C 190 28, 190 46, 180 60"/>
+      <path class="wave w3" d="M196 6 C 210 26, 210 52, 196 74"/>
+      <circle class="moon" cx="208" cy="104" r="9" stroke="#E8A33D" stroke-width="2.4"/>
+    </svg>
+    <div class="kicker">Devocional en camino · Elul 5786</div>
+    <h1>Camino<br>al <span>toque</span></h1>
+    <p class="sub">Siete estaciones para recorrer juntos, del shofar que despierta al fruto que permanece. Lean despacio, hablen en cada parada.</p>
+    <div class="counter">
+      <span class="n" id="days">–</span>
+      <span class="t">días para el toque<br>de la trompeta</span>
+    </div>
+    <div class="scroll-hint"><span class="dot"></span> desliza para arrancar el camino</div>
+  </header>
+
+  <!-- ============ 2 · EL MES DEL DESPERTAR ============ -->
+  <section id="s1" class="reveal">
+    <span class="node"></span>
+    <div class="eyebrow">Estación 1 · Elul</div>
+    <h2>El mes que <em>despierta</em></h2>
+    <p class="lead">Septiembre en el calendario de Dios no es un mes cualquiera: es la antesala de las fiestas. Yom Teruah, la fiesta de las trompetas, y luego Yom Kipur.</p>
+    <p>Durante todo Elul, en Israel suena el shofar cada mañana: un toque al día, despertando al pueblo antes de los días santos. No llegamos a la fiesta de sorpresa — el despertar empieza antes.</p>
+    <p class="soft">Las fiestas no son historia vieja: en toda la Biblia se guardan. Y este mes toca.</p>
+    <div class="ask">
+      <div class="lbl">Para conversar</div>
+      <p>¿Qué significa “despertar” para nosotros este mes, más allá de la rutina?</p>
+    </div>
+    <button class="next" onclick="document.getElementById('s2').scrollIntoView()">seguimos →</button>
+  </section>
+
+  <!-- ============ 3 · LA TROMPETA / SEÑALES (NOCHE) ============ -->
+  <section id="s2" class="reveal">
+    <span class="node"></span>
+    <div class="night">
+      <div class="eyebrow">Estación 2 · Las señales</div>
+      <h2>La trompeta <em>suena</em></h2>
+      <p>En Mateo 24 los discípulos le preguntan a Jesús cuándo va a venir. Y antes de responder, Él describe el mundo de hoy: falsos mesías, guerras, hambres, terremotos.</p>
+      <div class="verse">
+        <blockquote>“Porque habrá entonces un sufrimiento tan grande como nunca lo ha habido desde el comienzo del mundo ni lo habrá después.”</blockquote>
+        <span class="ref">San Mateo 24:21 — DHHDK</span>
+      </div>
+      <p>Pero después del sufrimiento viene la promesa: una gran trompeta que reúne a los escogidos.</p>
+      <div class="verse">
+        <blockquote>“Y él mandará a sus ángeles con una gran trompeta, para que reúnan a sus escogidos de los cuatro puntos cardinales, desde un extremo del cielo hasta el otro.”</blockquote>
+        <span class="ref">San Mateo 24:31 — DHHDK</span>
+      </div>
+      <p>La trompeta de la Biblia es el shofar, el cuerno de carnero. Nunca fue decoración: es alarma, es guerra, es “prepárate”. La fiesta misma se llama Yom Teruah — <em>teruah</em>, el grito que dice <strong>despierta</strong>.</p>
+      <div class="ask">
+        <div class="lbl">Para conversar</div>
+        <p>¿Qué “ruido” de estos días nos está despertando… o solo nos está asustando?</p>
+      </div>
+      <button class="next" onclick="document.getElementById('s3').scrollIntoView()">seguimos →</button>
+    </div>
+  </section>
+
+  <!-- ============ 4 · EL DÍA ESCONDIDO ============ -->
+  <section id="s3" class="reveal tint">
+    <span class="node"></span>
+    <div class="eyebrow">Estación 3 · La espera</div>
+    <h2>El día <em>escondido</em></h2>
+    <p>Yom Teruah cae en luna nueva: es el único día santo que nadie sabe exactamente cuándo será, hasta que alguien ve la luna y lo declara. Por eso los judíos lo llaman también <strong>Yom HaKeseh</strong> — el día escondido.</p>
+    <div class="verse">
+      <blockquote>“Manténganse ustedes despiertos, porque no saben qué día va a venir su Señor.”</blockquote>
+      <span class="ref">San Mateo 24:42 — DHHDK</span>
+    </div>
+    <p class="soft">Un llamado que toda la vida se lee genérico… y de pronto aterriza: si nadie sabe el día, la única forma de estar listos es estar siempre listos.</p>
+    <div class="ask">
+      <div class="lbl">Para conversar</div>
+      <p>¿Estamos viviendo como si fuera hoy… o como si sobrara tiempo?</p>
+    </div>
+    <button class="next" onclick="document.getElementById('s4').scrollIntoView()">seguimos →</button>
+  </section>
+
+  <!-- ============ 5 · TODO ESTO ES PARA LA IGLESIA ============ -->
+  <section id="s4" class="reveal">
+    <span class="node"></span>
+    <div class="eyebrow">Estación 4 · La casa</div>
+    <h2>Todo esto es para <em>la iglesia</em></h2>
+    <p>Entre la trompeta y los talentos, Jesús cuenta parábolas — y todas ocurren dentro de la casa: el siervo encargado, las diez vírgenes en la boda, los empleados del amo.</p>
+    <p>Las vírgenes lo dicen todo: <strong>las diez</strong> esperan al novio, <strong>las diez</strong> se duermen, <strong>las diez</strong> tienen lámpara. No son las de afuera — están en la boda. O sea: la iglesia.</p>
+    <p>La diferencia nunca fue la fe ni la novia. Fue el aceite. Y termina con lo más duro que se puede oír: <em>“Les aseguro que no las conozco.”</em> (Mateo 25:12)</p>
+    <div class="ask">
+      <div class="lbl">Para conversar</div>
+      <p>Las diez tenían lámpara. ¿Dónde está la nuestra — y con cuánto aceite?</p>
+    </div>
+    <button class="next" onclick="document.getElementById('s5').scrollIntoView()">seguimos →</button>
+  </section>
+
+  <!-- ============ 6 · LA PARÁBOLA ============ -->
+  <section id="s5" class="reveal tint">
+    <span class="node"></span>
+    <div class="eyebrow">Estación 5 · El encargo</div>
+    <h2>El siervo del <em>hoyo</em></h2>
+    <p>Y en ese mismo contexto, la parábola central: un amo que se va, empleados que reciben, y una cuenta pendiente.</p>
+    <div class="verse">
+      <blockquote>“Sucederá también con el reino de los cielos como con un hombre que, estando a punto de irse a otro país, llamó a sus empleados y les encargó que le cuidaran su dinero. A uno de ellos le entregó cinco mil monedas, a otro dos mil y a otro mil: a cada uno según su capacidad. [...] El empleado que recibió las cinco mil monedas fue y negoció con el dinero, y ganó otras cinco mil monedas. [...] Pero el que recibió mil fue y escondió el dinero de su jefe en un hoyo que hizo en la tierra.”</blockquote>
+      <span class="ref">San Mateo 25:14-15, 16, 18 — DHHDK</span>
+    </div>
+    <div class="verse">
+      <blockquote>“Pero cuando llegó el empleado que había recibido las mil monedas, le dijo a su jefe: ‘Señor, yo sabía que usted es un hombre duro, que cosecha donde no sembró y recoge donde no esparció. Por eso tuve miedo, y fui y escondí su dinero en la tierra. Pero aquí tiene lo que es suyo.’ El jefe le contestó: ‘Tú eres un empleado malo y perezoso.’”</blockquote>
+      <span class="ref">San Mateo 25:24-26a — DHHDK</span>
+    </div>
+    <p>El del hoyo no gastó nada, no robó nada, devolvió todo. Y aun así recibe el peor veredicto de la parábola.</p>
+    <div class="ask">
+      <div class="lbl">Para conversar</div>
+      <p>No perdió nada, no hizo nada malo… ¿por qué “malo y perezoso”? ¿Qué quiso decir Jesús?</p>
+    </div>
+    <button class="next" onclick="document.getElementById('s6').scrollIntoView()">seguimos →</button>
+  </section>
+
+  <!-- ============ 7 · LA MENTIRA Y LA PEREZA ============ -->
+  <section id="s6" class="reveal">
+    <span class="node"></span>
+    <div class="eyebrow">Estación 6 · El diagnóstico</div>
+    <h2>La mentira y la <em>pereza</em></h2>
+    <p>El griego deja ver las dos heridas. <span class="grk"><span class="grc">ponēros</span><span class="m">malo</span></span> — la maldad no fue el hoyo: fue la mentira sobre el carácter del amo (“es un hombre duro”). El que actúa como si Dios fuera imposible de complacer ya está creyendo una mentira. Y <span class="grk"><span class="grc">oknēros</span><span class="m">perezoso</span></span> — no el que no pudo: el que lo dejó todo para después.</p>
+    <p>La inactividad siempre viene acompañada de una mentira sobre el carácter de Dios. El amo real es otro: entrega según la capacidad, celebra la fidelidad en lo poco, y dice <em>“entra y alégrate conmigo”</em>.</p>
+    <p class="soft">Conocimiento + inactividad = pecado. <em>“El que sabe hacer el bien y no lo hace, comete pecado.”</em> (Santiago 4:17)</p>
+    <div class="ask">
+      <div class="lbl">Para conversar</div>
+      <p>¿Qué mentira sobre el Amo me está frenando a mí — y a nosotros?</p>
+    </div>
+    <button class="next" onclick="document.getElementById('s7').scrollIntoView()">seguimos →</button>
+  </section>
+
+  <!-- ============ 8 · PRODUCIR ES AYUDAR ============ -->
+  <section id="s7" class="reveal tint">
+    <span class="node"></span>
+    <div class="eyebrow">Estación 7 · El fruto</div>
+    <h2>Producir es <em>ayudar</em></h2>
+    <p>¿Y qué es producir? Jesús lo explica en el mismo capítulo, apenas termina la parábola — el mismo Señor contando qué van a encontrar los que entren:</p>
+    <div class="verse">
+      <blockquote>“Pues tuve hambre, y ustedes me dieron de comer; tuve sed, y me dieron de beber; anduve como forastero, y me dieron alojamiento. Estuve sin ropa, y ustedes me la dieron; estuve enfermo, y me visitaron; estuve en la cárcel, y vinieron a verme. [...] Les aseguro que todo lo que hicieron por uno de estos hermanos míos más humildes, por mí mismo lo hicieron.”</blockquote>
+      <span class="ref">San Mateo 25:35-36, 40 — DHHDK</span>
+    </div>
+    <p>Multiplicar el talento nunca fue plata: <strong>es simplemente ayudar</strong>. La parábola es una sola enseñanza en dos actos — el siervo con el encargo, y el Rey explicando el fruto del encargo. Uno solo, pero concreto. Que cuando el Rey pregunte, no haya excusa.</p>
+    <div class="ask">
+      <div class="lbl">Para conversar</div>
+      <p>¿A quién vamos a ayudar este mes — uno concreto, con nombre?</p>
+    </div>
+    <button class="next" onclick="document.getElementById('s8').scrollIntoView()">seguimos →</button>
+  </section>
+
+  <!-- ============ 9 · CIERRE ============ -->
+  <section id="s8" class="reveal">
+    <span class="node"></span>
+    <div class="closing">
+      <div class="eyebrow">Antes de terminar</div>
+      <h2>El aceite en la <em>lámpara</em></h2>
+      <p>Hasta que suene la trompeta, tres cosas nos quedan haciendo:</p>
+      <div class="commit"><span class="b">1</span><div><strong>Nuestro encargo</strong><p>Identificar lo que el Señor nos puso en las manos — trabajo, matrimonio, consultorio, oportunidades — y decidir qué vamos a producir, concreto.</p></div></div>
+      <div class="commit"><span class="b">2</span><div><strong>Nuestro aceite</strong><p>Oración y Palabra diaria. La lámpara encendida porque veníamos encendiéndola — no de último minuto.</p></div></div>
+      <div class="commit"><span class="b">3</span><div><strong>Nuestro fruto</strong><p>Una persona concreta a quien dar de comer, vestir, visitar o ayudar este mes.</p></div></div>
+      <div class="prayer">
+        <div class="lbl">Oración</div>
+        <p>Padre, gracias porque Tú no eres un amo duro, sino el que da según nuestra capacidad y celebra la fidelidad en lo poco. Despiértanos en este Elul, y que la trompeta nos encuentre produciendo, con la lámpara encendida y las manos ocupadas en alguien.</p>
+        <p class="amen">Ven, Señor Jesús. Amén.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>Cartagena · Elul 5786 · Yom Teruah: 11–13 sep · Yom Kipur: 20–21 sep</footer>
+
+</div>
+
+<script>
+  // contador días hasta Yom Teruah 2026 (11 sep, atardecer)
+  (function(){
+    var el=document.getElementById('days');
+    if(!el)return;
+    var target=new Date(2026,8,11,18,0,0); // mes 8 = sep
+    var now=new Date();
+    var d=Math.ceil((target-now)/86400000);
+    el.textContent=d>0?d:0;
+  })();
+
+  // línea de progreso dorada
+  (function(){
+    var bar=document.getElementById('progress');
+    if(!bar)return;
+    function upd(){
+      var h=document.documentElement;
+      var max=h.scrollHeight-h.clientHeight;
+      var pct=max>0?(h.scrollTop/max)*100:0;
+      bar.style.height=pct+'%';
+    }
+    window.addEventListener('scroll',upd,{passive:true});
+    window.addEventListener('resize',upd);
+    upd();
+  })();
+
+  // revelado al bajar — sin IntersectionObserver: chequeo directo en cada scroll.
+  // Si JS no corre, la clase .js nunca se pone y todo se ve estático (nunca en blanco).
+  (function(){
+    var els=[].slice.call(document.querySelectorAll('.reveal'));
+    if(!els.length)return;
+    var tick=false;
+    function upd(){
+      tick=false;
+      var vh=(window.innerHeight||document.documentElement.clientHeight);
+      for(var i=0;i<els.length;i++){
+        var e=els[i];
+        if(e.classList.contains('on'))continue;
+        var r=e.getBoundingClientRect();
+        if(r.top<vh*0.95&&r.bottom>0){e.classList.add('on')}
+      }
+    }
+    function onScroll(){if(!tick){tick=true;requestAnimationFrame(upd)}}
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll);
+    upd();
+    setTimeout(upd,400);   // red de seguridad
+    setTimeout(upd,1500);  // segunda red de seguridad
+  })();
+</script>
+</body>
+</html>
